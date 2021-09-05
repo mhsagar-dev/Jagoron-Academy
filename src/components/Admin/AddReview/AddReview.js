@@ -7,20 +7,19 @@ import { Col, Row } from 'react-bootstrap';
 import Sidebar from '../Sidebar/Sidebar';
 
 
-const AddService = () => {
+const AddReview = () => {
   const history = useHistory()
   const { register, handleSubmit, formState: { } } = useForm();
   const [imgURL, setImgURL] = useState(null);
   const onSubmit = data => {
     const serviceData = {
       name: data.name,
-      price: data.price,
-      description: data.details,
-      imgURL: imgURL
+      company: data.company,
+      details: data.details
     };
 
     console.log(data);
-    const url = `https://salty-gorge-93542.herokuapp.com/addService`;
+    const url = `https://salty-gorge-93542.herokuapp.com/addReview`;
     console.log(serviceData);
 
     fetch(url, {
@@ -32,27 +31,13 @@ const AddService = () => {
     })
       .then(res => res.json())
       .then(data => {
-        alert('Product Added')
+        alert('Review Added')
         history.replace('/home')
       })
   };
 
 
-  const handleImgUpload = event => {
-    console.log(event.target.files[0]);
-    const imgData = new FormData();
-    imgData.set('key', '77da35cf31aaabe5dc1b1cc146b2d1b2');
-    imgData.append('image', event.target.files[0]);
 
-    axios.post('https://api.imgbb.com/1/upload', imgData)
-      .then(function (response) {
-        setImgURL(response.data.data.display_url);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-  }
   return (
     
     <section>
@@ -61,16 +46,14 @@ const AddService = () => {
         <Sidebar></Sidebar>
         </Col>
       <Col className='container' md={8}>
-      <h2>Add Courses</h2>
+      <h2>Your Review</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
 
-        <input className="form-control" required placeholder="Course Name" {...register("name")} />
+        <input className="form-control" required placeholder="Your Name" {...register("name")} />
         <br />
-        <input className="form-control" required placeholder="Price" {...register("price")} />
+        <input className="form-control" required placeholder="Comany Name" {...register("company")} />
         <br />
         <input type='text' className="form-control" required placeholder="description" {...register("details")} />
-        <br />
-        <input className="form-control" name="exampleRequired" type='file' onChange={handleImgUpload} />
         <br />
         <input className="form-control btn btn-primary" required type="submit" />
       </form>
@@ -80,4 +63,4 @@ const AddService = () => {
   );
 };
 
-export default AddService;
+export default AddReview;
