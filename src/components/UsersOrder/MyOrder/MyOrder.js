@@ -36,7 +36,7 @@ const MyOrder = () => {
                     {myorder.map((order) => (
                         <tr>
                             <td>{order.productName}</td>
-                            <td>BDT {order.price}/-</td>
+                            <td> ${order.price}/-</td>
                         </tr>
                     ))}
                 </tbody>
